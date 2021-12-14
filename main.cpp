@@ -55,9 +55,11 @@ int main()
     std::cout << "enter file name:\n";
     std::cin >> file_name;
 
-    Compressor compressor(file_name);
-    compressor.compress();
+    // Compressor compressor(file_name);
+    // compressor.operate();
 
+    DeCompressor decompressor(file_name);
+    decompressor.operate();
 
     return 0;
 }

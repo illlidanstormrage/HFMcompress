@@ -77,3 +77,28 @@ void HFMTree::level_order() const{
         }
     }
 }
+
+HFMTree::HFMTree(const std::map<int, std::string>& code_book){
+    this->root = std::make_shared<HFMNode>(-1, -1);
+    std::shared_ptr<HFMNode> node = root;
+    for(auto cb : code_book){
+        int num = cb.first;
+        std::string code = cb.second;
+        int code_size = code.size();
+        for(int i=0; i<code_size; i++){
+            if(code[i] == '0'){
+                if(!node->lchild){
+                    node->lchild = std::make_shared<HFMNode>(num);
+                }
+                node = node->lchild;
+            }
+            else if(code[i] == '1'){
+                if(!node->rchild){
+                    node->rchild = std::make_shared<HFMNode>(num);
+                }
+                node = node->rchild;
+            }
+        }
+        node = root;
+    }
+}

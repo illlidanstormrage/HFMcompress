@@ -11,6 +11,7 @@
 class HFMTree;
 class Compare_HFMNode_Pointer;
 class Compressor;
+class DeCompressor;
 
 // 统计每个字符(按8位ascii码)出现的次数
 class CountChar{
@@ -28,13 +29,14 @@ class HFMNode{
     friend class HFMTree;
     friend class Compare_HFMNode_Pointer;
     friend class Compressor;
+    friend class DeCompressor;
 public:
     HFMNode() = default;
-    HFMNode(int a, 
-            int b, 
+    HFMNode(int a = -1, 
+            int w = -1,
             std::shared_ptr<HFMNode> left = nullptr, 
             std::shared_ptr<HFMNode> right = nullptr): 
-            ascii(a), weight(b), lchild(left), rchild(right){}
+            ascii(a), weight(w), lchild(left), rchild(right){}
 private:
     int ascii;
     int weight;
@@ -55,6 +57,7 @@ class HFMTree{
 public:
     HFMTree() = default;
     HFMTree(const std::string&);
+    HFMTree(const std::map<int, std::string>&);
     std::shared_ptr<HFMNode> root;
 
     // 层序遍历
