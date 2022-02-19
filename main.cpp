@@ -5,33 +5,33 @@
 #include "huffman.h"
 #include "compressor.h"
 
-// inline int pow(int base, int index){
-//     if(index == 0){
-//         return 1;
-//     }
-//     return pow(base, index-1) * base;
-// }
+inline int pow(int base, int index){
+    if(index == 0){
+        return 1;
+    }
+    return pow(base, index-1) * base;
+}
 
-// void transfer(const std::string &file_name){
-//     std::ifstream ifs(file_name, std::ios::binary);
-//     std::string s;
-//     ifs >> s;
-//     std::ofstream ofs("transfered_compression", std::ios::binary);
-//     int size = s.size();
-//     int count = 0;
-//     for(int i=0; i<size; i++){
-//         int index = i%8;
-//         if(s[i] == '1'){
-//             count += pow(2, 7-index);
-//         }
-//         if(index == 7){
-//             char temp = count;
-//             ofs << temp;
-//             count = 0;
-//         }
-//     }
-//     ofs.close();
-// }
+void transfer(const std::string &file_name){
+    std::ifstream ifs(file_name, std::ios::binary);
+    std::string s;
+    ifs >> s;
+    std::ofstream ofs("transfered_compression", std::ios::binary);
+    int size = s.size();
+    int count = 0;
+    for(int i=0; i<size; i++){
+        int index = i%8;
+        if(s[i] == '1'){
+            count += pow(2, 7-index);
+        }
+        if(index == 7){
+            char temp = count;
+            ofs << temp;
+            count = 0;
+        }
+    }
+    ofs.close();
+}
 
 // 查看字符频度顺序
 void show_freq(){
@@ -55,11 +55,13 @@ int main()
     std::cout << "enter file name:\n";
     std::cin >> file_name;
 
+    transfer(file_name);
+
     // Compressor compressor(file_name);
     // compressor.operate();
 
-    DeCompressor decompressor(file_name);
-    decompressor.operate();
+    // DeCompressor decompressor(file_name);
+    // decompressor.operate();
 
     return 0;
 }
